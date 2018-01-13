@@ -10,13 +10,19 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.15.5",
+    "helmet": "^3.9.0",
     "morgan": "~1.9.0",
     "pug": "2.0.0-beta11",
-    "serve-favicon": "~2.4.5"
+    "sequelize": "^4.31.1",
+    "serve-favicon": "~2.4.5",
+    "sqlite3": "^3.1.13"
   },
   "description": "えむけーのアプリ！",
   "main": "app.js",
   "repository": "git@github.com:mktoho12/myapp.git",
   "author": "えむけー <makoto_16n1200102@nnn.ed.jp>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.14.11"
+  }
 }
