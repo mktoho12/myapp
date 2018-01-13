@@ -1,0 +1,12 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "description": "えむけーのアプリ！",
+  "main": "index.js",
+  "repository": "git@github.com:mktoho12/myapp.git",
+  "author": "えむけー <makoto_16n1200102@nnn.ed.jp>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
