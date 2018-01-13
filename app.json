@@ -1,0 +1,8 @@
+{
+  "name": "mynodeapp",
+  "description": "えむけーのアプリ",
+  "logo": "",
+  "keywords": ["node"],
+  "image": "heroku/nodejs"
+}
+
