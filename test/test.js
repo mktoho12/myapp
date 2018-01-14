@@ -8,6 +8,7 @@ const app = require('../app')
 const User = require('../models/user')
 
 describe('/users', () => {
+/*
   before(() => {
     User.create({
       email: 'test@gmail.com',
@@ -27,7 +28,6 @@ describe('/users', () => {
     })
   })
 
-/*
   it('ユーザー一覧に表示される', done => {
     request(app)
       .get('/users')
