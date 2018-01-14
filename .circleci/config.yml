@@ -5,6 +5,8 @@
 version: 2
 jobs:
   build:
+    environment:
+      - DATABASE_URL: "postgres://ubuntu@localhost:5432/db_name"
     docker:
       # specify the version you desire here
       - image: circleci/node:9.4.0
@@ -14,6 +16,9 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
       - image: circleci/postgres
+        environment:
+          - POSTGRES_USER=ubuntu
+          - POSTGRES_DB=db_name
 
     working_directory: ~/repo
 
