@@ -25,6 +25,7 @@ describe('/users', () => {
     })
   })
 
+/*
   it('ユーザー一覧に表示される', done => {
     request(app)
       .get('/users')
@@ -32,7 +33,6 @@ describe('/users', () => {
       .expect(200, done)
   })
 
-/*
   it('アカウント作成でユーザーが登録される', done => {
     request(app)
       .post('/users')
