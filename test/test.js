@@ -13,6 +13,8 @@ describe('/users', () => {
       email: 'test@gmail.com',
       name: 'テストユーザー',
       password_hash: bcrypt.hashSync('password', 10)
+    }).then(user => {
+      console.log(user.name)
     })
   })
 
