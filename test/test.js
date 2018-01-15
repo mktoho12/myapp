@@ -5,15 +5,15 @@ const bcrypt = require('bcrypt')
 const request = require('supertest')
 
 const app = require('../app')
-const database = require('../models/sequelize-loader').database
+const sequelize = require('../models/sequelize-loader').database
 const User = require('../models/user')
 
 before(() => 
-  database.sync()
+  sequelize.sync()
 )
 
 after(() =>
-  database.close()
+  sequelize.close()
 )
 
 describe('/users', () => {
@@ -27,11 +27,11 @@ describe('/users', () => {
   )
 
   after(() => 
-    User.findOne({
+    User.findAll({
       where: { email: 'test@gmail.com' }
     })
-    .then(user =>
-      user.destroy()
+    .then(users => 
+      Promise.all(users.map(user => user.destroy()))
     )
   )
 
@@ -46,7 +46,7 @@ describe('/users', () => {
     request(app)
       .post('/users')
       .send({
-        username: 'テストユーザー3',
+        username: 'テストユーザー2',
         password: 'password',
         email: 'test2@gmail.com'
       })
@@ -54,11 +54,12 @@ describe('/users', () => {
       .end((err, res) => {
         if (err) assert.ng()
         return User.findOne({ where: { email: 'test2@gmail.com' } }).then(user => {
-          assert.equal(user.name, 'テストユーザー3')
+          assert.equal(user.name, 'テストユーザー2')
           assert.ok(bcrypt.compareSync('password', user.password_hash))
           return user.destroy()
         })
       })
   )
+
 })
 
