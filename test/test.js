@@ -5,10 +5,15 @@ const bcrypt = require('bcrypt')
 const request = require('supertest')
 
 const app = require('../app')
+const database = require('../models/sequelize-loader').database
 const User = require('../models/user')
 
+before(() => 
+  database.sync()
+)
+
 after(() =>
-  User.sequelize.close()
+  database.close()
 )
 
 describe('/users', () => {
