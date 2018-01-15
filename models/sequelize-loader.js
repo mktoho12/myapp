@@ -1,7 +1,7 @@
 'use strict';
 const Sequelize = require('sequelize')
 const sequelize = new Sequelize(
-  process.env.DATABASE_URL || 'sqlite:db/myapp.db',
+  process.env.DATABASE_URL || 'postgres://postgres:postgres@localhost/myapp',
   { logging: console.log, operatorsAliases: false })
 
 module.exports = {
