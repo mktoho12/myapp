@@ -1,6 +1,7 @@
 'use strict'
 const loader = require('./sequelize-loader')
 const Sequelize = loader.Sequelize
+const bcrypt = require('bcrypt')
 
 const User = loader.database.define('users', {
   id: {
@@ -26,6 +27,11 @@ const User = loader.database.define('users', {
     underscored: true,
     timestamps: true
   })
+
+User.prototype.verifyPassword = function(password) {
+  console.log(`password_hash=[${this.password_hash}]`)
+  return bcrypt.compare(password, this.password_hash)
+}
 
 module.exports = User
 

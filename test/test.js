@@ -8,7 +8,7 @@ const app = require('../app')
 const sequelize = require('../models/sequelize-loader').database
 const User = require('../models/user')
 
-before(() => 
+before(() =>
   sequelize.sync()
 )
 
@@ -18,7 +18,7 @@ after(() =>
 
 describe('/users', () => {
 
-  before(() => 
+  before(() =>
     User.create({
       email: 'test@gmail.com',
       name: 'テストユーザー',
@@ -26,24 +26,22 @@ describe('/users', () => {
     })
   )
 
-  after(() => 
-    User.findAll({
+  after(async () => {
+    const users = await User.findAll({
       where: { email: 'test@gmail.com' }
     })
-    .then(users => 
-      Promise.all(users.map(user => user.destroy()))
-    )
-  )
+    return Promise.all(users.map(user => user.destroy()))
+  })
 
-  it('ユーザー一覧に表示される', () => 
+  it('ユーザー一覧に表示される', () =>
     request(app)
       .get('/users')
       .expect(200)
       .expect(/テストユーザー/)
   )
 
-  it('アカウント作成でユーザーが登録される', () =>
-    request(app)
+  it('アカウント作成でユーザーが登録される', async () => {
+    await request(app)
       .post('/users')
       .send({
         username: 'テストユーザー2',
@@ -52,15 +50,16 @@ describe('/users', () => {
       })
       .expect(302)
       .expect('Location', '/users')
-      .then(() =>
-        User.findOne({ where: { email: 'test2@gmail.com' } })
-      )
-      .then(user => {
-        assert.equal(user.name, 'テストユーザー2')
-        assert.ok(bcrypt.compareSync('password', user.password_hash))
-        return user.destroy()
-      })
-  )
+      .then()
+    const user = await User.findOne({ where: { email: 'test2@gmail.com' } })
+    assert.equal(user.name, 'テストユーザー2')
+    assert.ok(bcrypt.compareSync('password', user.password_hash))
+    await user.destroy()
+  })
+
+  it('パスワードのチェック', async () => {
+    const user = await User.findOne({ where: {email: 'test@gmail.com'} })
+    assert.ok(await user.verifyPassword('password'))
+  })
 
 })
-

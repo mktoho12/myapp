@@ -3,11 +3,10 @@
 const loader = require('./sequelize-loader')
 const User = require('./user')
 
-loader.database.sync()
-.then(() =>
-  loader.database.close()
-)
-.then(() => {
+const sync = async () => {
+  await loader.database.sync()
+  await loader.database.close()
   console.log('db sync done!')
-})
+}
 
+sync()

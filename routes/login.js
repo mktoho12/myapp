@@ -10,19 +10,16 @@ router.get('/', (req, res) => {
   res.render('login')
 })
 
-router.post('/', (req, res) => {
-  User.findOne({
+router.post('/', async (req, res) => {
+  const user = await User.findOne({
     where: { email: req.body.email }
   })
-  .then(user => {
-    if (bcrypt.compareSync(req.body.password, user.password_hash)) {
-      // パスワード一致
-    } else {
-      // パスワード不一致
-    }
-    res.redirect('/')
-  })
+  if (await bcrypt.compare(req.body.password, user.password_hash)) {
+    // パスワード一致
+  } else {
+    // パスワード不一致
+  }
+  res.redirect('/')
 })
 
 module.exports = router
-
