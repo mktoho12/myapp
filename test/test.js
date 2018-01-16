@@ -51,13 +51,14 @@ describe('/users', () => {
         email: 'test2@gmail.com'
       })
       .expect(302)
-      .end((err, res) => {
-        if (err) assert.ng()
-        return User.findOne({ where: { email: 'test2@gmail.com' } }).then(user => {
-          assert.equal(user.name, 'テストユーザー2')
-          assert.ok(bcrypt.compareSync('password', user.password_hash))
-          return user.destroy()
-        })
+      .expect('Location', '/users')
+      .then(() =>
+        User.findOne({ where: { email: 'test2@gmail.com' } })
+      )
+      .then(user => {
+        assert.equal(user.name, 'テストユーザー2')
+        assert.ok(bcrypt.compareSync('password', user.password_hash))
+        return user.destroy()
       })
   )
 
