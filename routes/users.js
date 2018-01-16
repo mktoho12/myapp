@@ -18,11 +18,14 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  User.create({
-    name: req.body.username,
-    email: req.body.email,
-    password_hash: hash(req.body.password)
-  })
+  hash(req.body.password)
+  .then(hashed_password =>
+    User.create({
+      name: req.body.username,
+      email: req.body.email,
+      password_hash: hashed_password
+    })
+  )
   .then((user) => {
     res.redirect('/users')
   })
@@ -31,7 +34,7 @@ router.post('/', (req, res) => {
   })
 })
 
-const hash = password => bcrypt.hashSync(password, 10)
+const hash = password => bcrypt.hash(password, 10)
 
 module.exports = router
 
