@@ -23,6 +23,7 @@ const User = loader.database.define('users', {
   }
 }, {
     freezeTableName: true,
+    underscored: true,
     timestamps: true
   })
 
