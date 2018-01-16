@@ -38,8 +38,8 @@ describe('/users', () => {
   it('ユーザー一覧に表示される', () => 
     request(app)
       .get('/users')
-      .expect(/テストユーザー/)
       .expect(200)
+      .expect(/テストユーザー/)
   )
 
   it('アカウント作成でユーザーが登録される', () =>
