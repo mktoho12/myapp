@@ -15,7 +15,7 @@ const login = require('./routes/login')
 const app = express()
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, '../views'))
 app.set('view engine', 'pug')
 
 // uncomment after placing your favicon in /public
@@ -28,8 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(helmet())
 
 // モデルの読み込み
-const User = require('./models/user')
-//User.sync() 
+app.db = require('./models/sequelize-loader').database
+const User = app.db.models.User
 
 app.use('/', index)
 app.use('/users', users)

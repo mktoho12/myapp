@@ -7,6 +7,9 @@ const sequelize = new Sequelize(
   }
 )
 
+const User = require('./user')
+sequelize.models = { User }
+
 module.exports = {
   database: sequelize,
   Sequelize: Sequelize

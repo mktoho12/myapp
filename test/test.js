@@ -4,16 +4,15 @@ const assert = require('assert')
 const bcrypt = require('bcrypt')
 const request = require('supertest')
 
-const app = require('../app')
-const sequelize = require('../models/sequelize-loader').database
-const User = require('../models/user')
+const app = require('../src/app')
+const User = app.db.models.User
 
 before(() =>
-  sequelize.sync()
+  app.db.sync()
 )
 
 after(() =>
-  sequelize.close()
+  app.db.close()
 )
 
 describe('/users', () => {
