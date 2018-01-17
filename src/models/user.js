@@ -2,8 +2,7 @@
 
 import Sequelize from 'sequelize'
 import bcrypt from 'bcrypt'
-import { database } from './sequelize-loader'
-const sequelize = database
+import database from './sequelize-loader'
 
 export default class User extends Sequelize.Model {
   static findByEmail (email) {
@@ -39,6 +38,6 @@ User.init(
     freezeTableName: true,
     underscored: true,
     timestamps: true,
-    sequelize
+    sequelize: database
   }
 )

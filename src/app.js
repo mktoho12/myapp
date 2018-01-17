@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import helmet from 'helmet'
 
-import { database } from './models/sequelize-loader'
+import database from './models/sequelize-loader'
 import index from './routes/index'
 import users from './routes/users'
 import login from './routes/login'

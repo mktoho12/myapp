@@ -5,8 +5,7 @@ import bcrypt from 'bcrypt'
 import request from 'supertest'
 
 import app from '../src/app'
-
-const User = app.db.models.User
+import User from '../src/models/user'
 
 before(() =>
   app.db.sync()

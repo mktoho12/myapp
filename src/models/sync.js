@@ -1,10 +1,10 @@
 'use strict'
 
-import loader from './sequelize-loader'
+import database from './sequelize-loader'
 
 const sync = async () => {
-  await loader.database.sync()
-  await loader.database.close()
+  await database.sync()
+  await database.close()
 }
 
 sync()
