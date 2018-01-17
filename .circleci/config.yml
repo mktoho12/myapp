@@ -43,7 +43,7 @@ jobs:
       - run:
           command: |
             mkdir -p ~/junit
-            ./node_mudules/.bin/babel-node ./node_mudules/.bin/mocha --reporter mocha-junit-reporter
+            ./node_mudules/.bin/mocha --require babel-core/register --reporter mocha-junit-reporter
           environment:
             MOCHA_FILE: junit/test-results.xml
           when: always
@@ -54,7 +54,7 @@ jobs:
       - run:
           command: |
             mkdir -p ~/reports
-            ./node_modules/.bin/eslint --format junit --output-file ~/reports/eslint.xml
+            ./node_modules/.bin/eslint --format junit --output-file ~/reports/eslint.xml src/** test/**
           when: always
       - store_test_results:
           path: ~/reports
