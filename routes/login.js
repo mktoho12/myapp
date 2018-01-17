@@ -11,10 +11,8 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  const user = await User.findOne({
-    where: { email: req.body.email }
-  })
-  if (await bcrypt.compare(req.body.password, user.password_hash)) {
+  const user = await User.findByEmail(req.body.email)
+  if (await user.verifyPassword(req.body.password)) {
     // パスワード一致
   } else {
     // パスワード不一致

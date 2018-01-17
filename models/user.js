@@ -6,6 +6,11 @@ const sequelize = loader.database
 const bcrypt = require('bcrypt')
 
 class User extends Sequelize.Model {
+  static findByEmail(email) {
+    console.log(this)
+    return this.findOne({ where: { email: email }})
+  }
+
   verifyPassword(password) {
     return bcrypt.compare(password, this.password_hash)
   }

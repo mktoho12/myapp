@@ -51,15 +51,20 @@ describe('/users', () => {
       .expect(302)
       .expect('Location', '/users')
       .then()
-    const user = await User.findOne({ where: { email: 'test2@gmail.com' } })
+    const user = await User.findByEmail('test2@gmail.com')
     assert.equal(user.name, 'テストユーザー2')
     assert.ok(bcrypt.compareSync('password', user.password_hash))
     await user.destroy()
   })
 
   it('パスワードのチェック', async () => {
-    const user = await User.findOne({ where: {email: 'test@gmail.com'} })
+    const user = await User.findByEmail('test@gmail.com')
     assert.ok(await user.verifyPassword('password'))
+  })
+
+  it('メールアドレスで検索', async () => {
+    const user = await User.findByEmail('test@gmail.com')
+    assert.equal(user.name, 'テストユーザー')
   })
 
 })
