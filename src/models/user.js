@@ -1,8 +1,8 @@
 'use strict'
 
-import { database } from './sequelize-loader'
-import Sequelize from 'Sequelize'
+import Sequelize from 'sequelize'
 import bcrypt from 'bcrypt'
+import { database } from './sequelize-loader'
 const sequelize = database
 
 export default class User extends Sequelize.Model {
