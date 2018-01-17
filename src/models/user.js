@@ -6,11 +6,11 @@ import { database } from './sequelize-loader'
 const sequelize = database
 
 export default class User extends Sequelize.Model {
-  static findByEmail(email) {
-    return this.findOne({ where: { email: email }})
+  static findByEmail (email) {
+    return this.findOne({ where: { email: email } })
   }
 
-  verifyPassword(password) {
+  verifyPassword (password) {
     return bcrypt.compare(password, this.password_hash)
   }
 }

@@ -1,8 +1,8 @@
 import express from 'express'
 import bcrypt from 'bcrypt'
-const router = express.Router()
-
 import User from '../models/user'
+
+const router = express.Router()
 
 router.get('/', async (req, res) => {
   const users = await User.findAll({
@@ -16,11 +16,11 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  const hashed_password = await hash(req.body.password)
+  const hashedPassword = await hash(req.body.password)
   await User.create({
     name: req.body.username,
     email: req.body.email,
-    password_hash: hashed_password
+    password_hash: hashedPassword
   })
   res.redirect('/users')
 })

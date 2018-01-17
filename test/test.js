@@ -17,7 +17,6 @@ after(() =>
 )
 
 describe('/users', () => {
-
   before(() =>
     User.create({
       email: 'test@gmail.com',
@@ -66,5 +65,4 @@ describe('/users', () => {
     const user = await User.findByEmail('test@gmail.com')
     assert.equal(user.name, 'テストユーザー')
   })
-
 })
