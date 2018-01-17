@@ -32,7 +32,8 @@ User.init(
     },
     email: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     }
   }, {
     freezeTableName: true,
@@ -41,3 +42,4 @@ User.init(
     sequelize: database
   }
 )
+

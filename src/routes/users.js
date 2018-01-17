@@ -12,10 +12,24 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/new', (req, res) => {
-  res.render('users/new')
+  res.render('users/new', { user: {} })
 })
 
 router.post('/', async (req, res) => {
+  const errors = new Map()
+  Object.entries(req.body).forEach(([key, value]) => {
+    if(value.trim() === '') {
+      errors.set(key, '入力してください')
+    }
+  })
+  if(await User.findByEmail(req.body.email)) {
+    errors.set('email', '既に使用されているメールアドレスです')
+  }
+  if(errors.size > 0) {
+    res.render('users/new', { user: req.body, errors: errors })
+    return
+  }
+
   const hashedPassword = await hash(req.body.password)
   await User.create({
     name: req.body.username,
@@ -28,3 +42,4 @@ router.post('/', async (req, res) => {
 const hash = password => bcrypt.hash(password, 10)
 
 export default router
+

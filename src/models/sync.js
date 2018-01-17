@@ -1,10 +1,12 @@
 'use strict'
 
 import database from './sequelize-loader'
+import User from './user'
 
 const sync = async () => {
-  await database.sync()
+  await User.sync()
   await database.close()
 }
 
 sync()
+
