@@ -7,7 +7,7 @@
     "test": "mocha --require babel-core/register",
     "sync": "node ./models/sync.js",
     "build": "babel src -d  dist",
-    "lint": "eslint src/**"
+    "lint": "eslint src/** test/**"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
@@ -39,6 +39,7 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "mocha": "^4.1.0",
+    "mocha-junit-reporter": "^1.15.0",
     "nodemon": "^1.14.11"
   },
   "engines": {
