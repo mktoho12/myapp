@@ -1,21 +1,20 @@
 'use strict'
 
-const express = require('express')
-const path = require('path')
-const favicon = require('serve-favicon')
-const logger = require('morgan')
-const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
-const helmet = require('helmet')
+import express from 'express'
+import logger from 'morgan'
+import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
+import helmet from 'helmet'
 
-const index = require('./routes/index')
-const users = require('./routes/users')
-const login = require('./routes/login')
+import index from './routes/index'
+import users from './routes/users'
+import login from './routes/login'
 
 const app = express()
+export default app
 
 // view engine setup
-app.set('views', path.join(__dirname, '../views'))
+app.set('views', './views')
 app.set('view engine', 'pug')
 
 // uncomment after placing your favicon in /public
@@ -24,12 +23,12 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static('./public'))
 app.use(helmet())
 
 // モデルの読み込み
-app.db = require('./models/sequelize-loader').database
-const User = app.db.models.User
+import { database } from './models/sequelize-loader'
+app.db = database
 
 app.use('/', index)
 app.use('/users', users)
@@ -43,7 +42,7 @@ app.use(function(req, res, next) {
 })
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
@@ -52,6 +51,3 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500)
   res.render('error')
 })
-
-module.exports = app
-

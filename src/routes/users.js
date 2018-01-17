@@ -1,8 +1,8 @@
-const express = require('express')
-const bcrypt = require('bcrypt')
+import express from 'express'
+import bcrypt from 'bcrypt'
 const router = express.Router()
 
-const User = require('../models/user.js')
+import User from '../models/user'
 
 router.get('/', async (req, res) => {
   const users = await User.findAll({
@@ -27,5 +27,4 @@ router.post('/', async (req, res) => {
 
 const hash = password => bcrypt.hash(password, 10)
 
-module.exports = router
-
+export default router

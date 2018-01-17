@@ -1,13 +1,12 @@
 'use strict'
 
-const loader = require('./sequelize-loader')
-const Sequelize = loader.Sequelize
-const sequelize = loader.database
-const bcrypt = require('bcrypt')
+import { database } from './sequelize-loader'
+import Sequelize from 'Sequelize'
+import bcrypt from 'bcrypt'
+const sequelize = database
 
-class User extends Sequelize.Model {
+export default class User extends Sequelize.Model {
   static findByEmail(email) {
-    console.log(this)
     return this.findOne({ where: { email: email }})
   }
 
@@ -43,6 +42,3 @@ User.init(
     sequelize
   }
 )
-
-module.exports = User
-

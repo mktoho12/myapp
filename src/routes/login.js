@@ -1,10 +1,9 @@
 'use strict'
 
-const express = require('express')
-const bcrypt = require('bcrypt')
+import express from 'express'
 const router = express.Router()
 
-const User = require('../models/user.js')
+import User from '../models/user'
 
 router.get('/', (req, res) => {
   res.render('login')
@@ -20,4 +19,4 @@ router.post('/', async (req, res) => {
   res.redirect('/')
 })
 
-module.exports = router
+export default router

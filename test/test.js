@@ -1,10 +1,11 @@
 'use strict'
 
-const assert = require('assert')
-const bcrypt = require('bcrypt')
-const request = require('supertest')
+import assert from 'assert'
+import bcrypt from 'bcrypt'
+import request from 'supertest'
 
-const app = require('../src/app')
+import app from '../src/app'
+
 const User = app.db.models.User
 
 before(() =>
