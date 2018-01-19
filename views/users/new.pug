@@ -3,11 +3,10 @@ extends ../layout
 block content
   h1 ユーザー登録
   form(method="post" action="/users")
-    p
+    p(id="username")
       span ユーザー名:
-      input(type="text" name="username" value=user.username)
-      if errors && errors.has('username')
-        span(style="color:red") #{errors.get('username')}
+      input(type="text" name="username" v-model="username")
+      span(style="color:red") {{ message }}
     p
       span パスワード:
       input(type="password" name="password" value=user.password)

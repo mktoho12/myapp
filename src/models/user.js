@@ -42,4 +42,3 @@ User.init(
     sequelize: database
   }
 )
-

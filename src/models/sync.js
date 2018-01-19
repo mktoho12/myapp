@@ -9,4 +9,3 @@ const sync = async () => {
 }
 
 sync()
-
