@@ -10,6 +10,7 @@ import database from './models/sequelize-loader'
 import index from './routes/index'
 import users from './routes/users'
 import login from './routes/login'
+import api from './routes/api'
 
 const app = express()
 export default app
@@ -33,6 +34,7 @@ app.db = database
 app.use('/', index)
 app.use('/users', users)
 app.use('/login', login)
+app.use('/api', api)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

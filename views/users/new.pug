@@ -1,22 +1,36 @@
 extends ../layout
 
 block content
-  h1 ユーザー登録
+  div(class='row')
+    div(class='col-sm-4')
+    div(class='col-sm-8')
+      h1 アカウント作成
   form(method="post" action="/users")
-    p(id="username")
-      span ユーザー名:
-      input(type="text" name="username" v-model="username")
-      span(style="color:red") {{ message }}
-    p
-      span パスワード:
-      input(type="password" name="password" value=user.password)
-      if errors && errors.has('password')
-        span(style="color:red") #{errors.get('password')}
-    p
-      span メールアドレス:
-      input(type="text" name="email" value=user.email)
-      if errors && errors.has('email')
-        span(style="color:red") #{errors.get('email')}
-
-    button(type="submit") 登録する
+    div(class='form-group')
+      div(id='username' class='row py-2')
+        div(class='col-sm-4')
+        div(class='col-sm-4')
+          input(type='text' name='username' v-model='username' class='form-control' placeholder='名前（またはニックネーム）' required)
+        div(class='col-sm-4')
+          span(v-if='valid' class='oi oi-check text-success' aria-hidden='true')
+          span(v-if='valid === false' class='oi oi-x text-danger' aria-hidden='true') {{ message }}
+      div(id='password' class='row py-2')
+        div(class='col-sm-4')
+        div(class='col-sm-4')
+          input(type='password' name='password' v-model='password' class='form-control' placeholder='パスワード')
+        div(class='col-sm-4')
+          span(v-if='valid' class='oi oi-check text-success' aria-hidden='true')
+          span(v-if='valid === false' class='oi oi-x text-danger' aria-hidden='true') {{ message }}
+      div(id='email' class='row py-2')
+        div(class='col-sm-4')
+        div(class='col-sm-4')
+          input(type="text" name="email" v-model='email' class='form-control' placeholder='メールアドレス')
+        div(class='col-sm-4')
+          span(v-if='valid' class='oi oi-check text-success' aria-hidden='true')
+          span(v-if='valid === false' class='oi oi-x text-danger' aria-hidden='true') {{ message }}
+          span(v-if='loading' class='oi oi-timer text-info' aria-hidden='true') 確認しています…
+      div(class='row py-2')
+        div(class='col-sm-4')
+        div(class='col-sm-8')
+          button(type="submit" class='btn btn-primary') 登録する
 
