@@ -43,7 +43,7 @@
     "clean-css-cli": "^4.1.10",
     "postcss": "^6.0.16",
     "postcss-cli": "^4.1.1",
-    "npm-run-all": "^4.1.2",,
+    "npm-run-all": "^4.1.2",
     "node-sass": "^4.7.2"
   },
   "description": "えむけーのアプリ！",
