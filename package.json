@@ -32,7 +32,8 @@
     "supertest": "^3.0.0",
     "validator": "^9.2.0",
     "vue": "^2.5.13",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "zxcvbn": "^4.4.2"
   },
   "description": "えむけーのアプリ！",
   "main": "lib/app.js",

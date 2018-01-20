@@ -1,10 +1,10 @@
 'use strict'
 
 import Vue from 'vue'
-import bootstrap from 'bootstrap'
 import validator from 'validator'
 import _ from 'lodash'
 import axios from 'axios'
+import zxcvbn from 'zxcvbn'
 
 const username = new Vue({
   el: '#username',
@@ -14,17 +14,15 @@ const username = new Vue({
     valid: null
   },
   watch: {
-    username: function(val) {
-      if(val.trim() === '') {
+    username: function (val) {
+      if (val.trim() === '') {
         this.message = '名前を入力してください'
-        this.valid = false
-      } else if(val.trim().length > 10) {
+      } else if (val.trim().length > 10) {
         this.message = '10文字以内で入力してください'
-        this.valid = false
       } else {
         this.message = ''
-        this.valid = true
       }
+      this.valid = this.message === ''
     }
   }
 })
@@ -34,20 +32,26 @@ const password = new Vue({
   data: {
     password: '',
     message: '',
-    valid: null
+    valid: null,
+    score: 0,
+    passwordStrength: {width: 0}
   },
   watch: {
-    password: function(val) {
-      if(val.trim() === '') {
+    password(val) {
+      this.score = zxcvbn(val).score
+      if (val.trim() === '') {
         this.message = 'パスワードを入力してください'
-        this.valid = false
-      } else if(val.trim().length < 8) {
-        this.message = '8文字以上で入力してください'
-        this.valid = false
+      } else if (val.trim().length < 6) {
+        this.message = 'パスワードは6文字以上にしてください'
+      } else if (zxcvbn(val.trim()).score < 2) {
+        this.message = 'もっと複雑なパスワードを入力してください'
       } else {
         this.message = ''
-        this.valid = true
       }
+      this.valid = this.message === ''
+    },
+    score(val) {
+      this.passwordStrength = {width: `${val * 50 / 4}px`}
     }
   }
 })
@@ -61,13 +65,11 @@ const email = new Vue({
     loading: false
   },
   watch: {
-    email: _.debounce(async function(val) {
-      if(val.trim() === '') {
+    email: _.debounce(async function (val) {
+      if (val.trim() === '') {
         this.message = 'メールアドレスを入力してください'
-        this.valid = false
-      } else if(!validator.isEmail(val.trim())) {
+      } else if (!validator.isEmail(val.trim())) {
         this.message = '有効なメールアドレスを入力してください'
-        this.valid = false
       } else {
         this.valid = null
         this.loading = true
@@ -79,12 +81,11 @@ const email = new Vue({
         this.loading = false
         if (res.data.status === 'ok' && res.data.result === true) {
           this.message = 'メールアドレスは既に使われています'
-          this.valid = false
         } else {
           this.message = ''
-          this.valid = true
         }
       }
+      this.valid = this.message === ''
     }, 1000)
   }
 })

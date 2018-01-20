@@ -5,7 +5,7 @@ block content
     div(class='col-sm-4')
     div(class='col-sm-8')
       h1 アカウント作成
-  form(method="post" action="/users")
+  form(id='signup-form' method='post' action='/users' autocomplete='off')
     div(class='form-group')
       div(id='username' class='row py-2')
         div(class='col-sm-4')
@@ -14,10 +14,14 @@ block content
         div(class='col-sm-4')
           span(v-if='valid' class='oi oi-check text-success' aria-hidden='true')
           span(v-if='valid === false' class='oi oi-x text-danger' aria-hidden='true') {{ message }}
-      div(id='password' class='row py-2')
+      div(id='password' class='password row py-2')
         div(class='col-sm-4')
         div(class='col-sm-4')
-          input(type='password' name='password' v-model='password' class='form-control' placeholder='パスワード')
+          div(class='field')
+            input(type='password' name='password' v-model='password' class='form-control' placeholder='パスワード')
+          div(class='score')
+            span
+              b(class='fill' :style='passwordStrength')
         div(class='col-sm-4')
           span(v-if='valid' class='oi oi-check text-success' aria-hidden='true')
           span(v-if='valid === false' class='oi oi-x text-danger' aria-hidden='true') {{ message }}
@@ -32,5 +36,5 @@ block content
       div(class='row py-2')
         div(class='col-sm-4')
         div(class='col-sm-8')
-          button(type="submit" class='btn btn-primary') 登録する
+          button(type="submit" id='submit' v-bind:disabled='valid' class='btn btn-primary') 登録する
 

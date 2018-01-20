@@ -8,3 +8,32 @@
   }
 }
 
+#signup-form {
+  .password {
+    .field {
+      position: relative;
+    }
+    .score {
+      position: absolute;
+      top: 6px;
+      right: 30px;
+      span {
+        width: 50px;
+        height: 8px;
+        display: inline-block;
+        overflow: hidden;
+        background-color: #e6ecf0;
+        vertical-align: middle;
+        border-radius: 3px;
+        .fill {
+          display: block;
+          height: 8px;
+          background-color: #6ec02a;
+          transition-property: width;
+          transition-duration: 500ms;
+        }
+      }
+    }
+  }
+}
+
