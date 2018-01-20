@@ -6,13 +6,15 @@
     "start": "node ./bin/www",
     "test": "mocha --require babel-core/register",
     "sync": "babel-node ./src/models/sync.js",
-    "build": "babel src -d  dist",
+    "compile": "babel src -d dist",
     "lint": "eslint src/** test/**",
-    "pack": "webpack --config webpack.config.js",
+    "webpack": "webpack --config webpack.config.js",
     "css": "npm-run-all css-compile css-prefix css-minify",
     "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 frontend/scss/custom.scss public/stylesheets/custom.css",
     "css-prefix": "postcss --config node_modules/bootstrap/build/postcss.config.js --replace public/stylesheets/custom.css",
-    "css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output public/stylesheets/custom.min.css public/stylesheets/custom.css"
+    "css-minify": "cleancss --level 1 --source-map --source-map-inline-sources --output public/stylesheets/custom.min.css public/stylesheets/custom.css",
+    "build": "npm-run-all compile css webpack",
+    "postinstall": "yarn build"
   },
   "dependencies": {
     "axios": "^0.17.1",
