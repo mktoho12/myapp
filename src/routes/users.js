@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/new', (req, res) => {
-  res.render('users/new', { user: {} })
+  res.render('users/new', { csrfToken: req.csrfToken() })
 })
 
 router.post('/', async (req, res) => {

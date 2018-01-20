@@ -2,8 +2,13 @@ extends ../layout
 
 block content
   h1 ユーザー一覧
-  ul
-    for user in users
-      li #{user.name}
-  p
-    a(href="/users/new") アカウント作成
+  table.table
+    thead
+      tr
+        th 名前
+        th メールアドレス
+    tbody
+      for user in users
+        tr
+          td #{user.name}
+          td #{user.email}

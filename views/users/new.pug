@@ -1,40 +1,41 @@
 extends ../layout
 
 block content
-  div(class='row')
-    div(class='col-sm-4')
-    div(class='col-sm-8')
+  div.row
+    div.col-sm-4
+    div.col-sm-8
       h1 アカウント作成
   form(id='signup-form' method='post' action='/users' autocomplete='off' @submit.prevent='validate')
-    div(class='form-group')
-      div(id='username' class='row py-2')
-        div(class='col-sm-4')
-        div(class='col-sm-4')
-          input(type='text' name='username' v-model='username' class='form-control' placeholder='名前（またはニックネーム）' autofocus)
-        div(class='col-sm-4')
-          span(v-if='valid' class='oi oi-check text-success' aria-hidden='true')
-          span(v-if='valid === false' class='oi oi-x text-danger' aria-hidden='true') {{ message }}
-      div(id='password' class='password row py-2')
-        div(class='col-sm-4')
-        div(class='col-sm-4')
-          div(class='field')
-            input(type='password' name='password' v-model='password' class='form-control' placeholder='パスワード')
-          div(class='score')
+    input(type='hidden' name='_csrf' value=`${csrfToken}`)
+    div.form-group
+      div#username.row.py-2
+        div.col-sm-4
+        div.col-sm-4
+          input.form-control(type='text' name='username' v-model='username' placeholder='名前（またはニックネーム）' autofocus)
+        div.col-sm-4
+          span.oi.oi-check.text-success(v-if='valid' aria-hidden='true')
+          span.oi.oi-x.text-danger(v-if='valid === false' aria-hidden='true') {{ message }}
+      div#password.password.row.py-2
+        div.col-sm-4
+        div.col-sm-4
+          div.field
+            input.form-control(type='password' name='password' v-model='password' placeholder='パスワード')
+          div.score
             span
-              b(class='fill' :style='passwordStrength')
-        div(class='col-sm-4')
-          span(v-if='valid' class='oi oi-check text-success' aria-hidden='true')
-          span(v-if='valid === false' class='oi oi-x text-danger' aria-hidden='true') {{ message }}
-      div(id='email' class='row py-2')
-        div(class='col-sm-4')
-        div(class='col-sm-4')
-          input(type="text" name="email" v-model='email' class='form-control' placeholder='メールアドレス')
-        div(class='col-sm-4')
-          span(v-if='valid' class='oi oi-check text-success' aria-hidden='true')
-          span(v-if='valid === false' class='oi oi-x text-danger' aria-hidden='true') {{ message }}
-          span(v-if='loading' class='oi oi-timer text-info' aria-hidden='true') 確認しています…
-      div(class='row py-2')
-        div(class='col-sm-4')
-        div(class='col-sm-8')
-          button(type='submit' id='btn-submit' class='btn btn-primary') 登録する
+              b.fill(:style='passwordStrength')
+        div.col-sm-4
+          span.oi.oi-check.text-success(v-if='valid' aria-hidden='true')
+          span.oi.oi-x.text-danger(v-if='valid === false' aria-hidden='true') {{ message }}
+      div#email.row.py-2
+        div.col-sm-4
+        div.col-sm-4
+          input.form-control(type="text" name="email" v-model='email' placeholder='メールアドレス')
+        div.col-sm-4
+          span.oi.oi-check.text-success(v-if='valid' aria-hidden='true')
+          span.oi.oi-x.text-danger(v-if='valid === false' aria-hidden='true') {{ message }}
+          span.oi.oi-timer.text-info(v-if='loading' aria-hidden='true') 確認しています…
+      div.row.py-2
+        div.col-sm-4
+        div.col-sm-8
+          button#btn-submit.btn.btn-primary(type='submit') 登録する
 

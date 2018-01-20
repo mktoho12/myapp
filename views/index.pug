@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 メニュー
+  div.list-group
+    a.list-group-item.list-group-item-action(href='/users/new') アカウント作成
+    a.list-group-item.list-group-item-action(href='/users') 一覧
+

@@ -5,6 +5,7 @@ import logger from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import helmet from 'helmet'
+import csrf from 'csurf'
 
 import database from './models/sequelize-loader'
 import index from './routes/index'
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static('./public'))
 app.use(helmet())
+app.use(csrf({ cookie: true }))
 
 // モデルの読み込み
 app.db = database
