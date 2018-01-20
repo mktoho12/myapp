@@ -10,4 +10,3 @@ router.get('/email/exists', async (req, res) => {
 })
 
 export default router
-
