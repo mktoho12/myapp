@@ -5,6 +5,7 @@ import validator from 'validator'
 import _ from 'lodash'
 import axios from 'axios'
 import zxcvbn from 'zxcvbn'
+import anime from 'animejs'
 
 const username = new Vue({
   el: '#username',
@@ -87,6 +88,22 @@ const email = new Vue({
       }
       this.valid = this.message === ''
     }, 1000)
+  }
+})
+
+document.getElementById('signup-form').addEventListener('submit', event => {
+  if (!username.valid || !password.valid || !email.valid) {
+    anime({
+      targets: '#btn-submit',
+      translateX: [
+        { value: -10, duration: 50, elasticity: 0 },
+        { value: 10, duration: 50, elasticity: 0 },
+        { value: -10, duration: 50, elasticity: 0 },
+        { value: 10, duration: 50, elasticity: 0 },
+        { value: 0, duration: 50, elasticity: 0 }
+      ]
+    })
+    event.preventDefault()
   }
 })
 
