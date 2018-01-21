@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha --require babel-core/register",
+    "test": "nyc mocha --require babel-core/register",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "sync": "babel-node ./src/models/sync.js",
     "compile": "babel src -d dist",
     "lint": "eslint src/** test/** frontend/js/**",
@@ -55,6 +56,7 @@
   "author": "えむけー <makoto_16n1200102@nnn.ed.jp>",
   "license": "MIT",
   "devDependencies": {
+    "coveralls": "^3.0.0",
     "eslint": "^4.15.0",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.8.0",
@@ -64,6 +66,7 @@
     "mocha": "^4.1.0",
     "mocha-junit-reporter": "^1.15.0",
     "nodemon": "^1.14.11",
+    "nyc": "^11.4.1",
     "popper.js": "^1.12.9"
   },
   "engines": {

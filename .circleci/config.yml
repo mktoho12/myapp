@@ -60,3 +60,7 @@ jobs:
           path: ~/reports
       - store_artifacts:
           path: ~/reports
+      - run:
+          command: |
+            yarn coverage
+
