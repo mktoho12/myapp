@@ -38,7 +38,7 @@ const password = new Vue({
     passwordStrength: {width: 0}
   },
   watch: {
-    password(val) {
+    password (val) {
       this.score = zxcvbn(val).score
       if (val.trim() === '') {
         this.message = 'パスワードを入力してください'
@@ -51,7 +51,7 @@ const password = new Vue({
       }
       this.valid = this.message === ''
     },
-    score(val) {
+    score (val) {
       this.passwordStrength = {width: `${val * 50 / 4}px`}
     }
   }
@@ -106,4 +106,3 @@ document.getElementById('signup-form').addEventListener('submit', event => {
     event.preventDefault()
   }
 })
-

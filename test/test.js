@@ -2,10 +2,15 @@
 
 import assert from 'assert'
 import bcrypt from 'bcrypt'
-import request from 'supertest'
+import supertest from 'supertest'
+import cheerio from 'cheerio'
 
 import app from '../src/app'
 import User from '../src/models/user'
+
+// Extract CSRF Token from response
+const extractCSRFToken = res =>
+  cheerio.load(res.text)('[name=_csrf]').val()
 
 before(() =>
   app.db.sync()
@@ -32,23 +37,29 @@ describe('/users', () => {
   })
 
   it('ユーザー一覧に表示される', () =>
-    request(app)
+    supertest(app)
       .get('/users')
       .expect(200)
       .expect(/テストユーザー/)
   )
 
   it('アカウント作成でユーザーが登録される', async () => {
-    await request(app)
+    const agent = supertest.agent(app)
+    const csrfToken = extractCSRFToken(
+      await agent.get('/users/new').then())
+
+    await agent
       .post('/users')
       .send({
         username: 'テストユーザー2',
         password: 'password',
-        email: 'test2@gmail.com'
+        email: 'test2@gmail.com',
+        _csrf: csrfToken
       })
       .expect(302)
       .expect('Location', '/users')
       .then()
+
     const user = await User.findByEmail('test2@gmail.com')
     assert.equal(user.name, 'テストユーザー2')
     assert.ok(bcrypt.compareSync('password', user.password_hash))
